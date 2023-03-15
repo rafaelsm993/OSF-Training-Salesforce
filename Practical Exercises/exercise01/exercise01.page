@@ -1,0 +1,70 @@
+<!-- 
+
+- Create a Visualforce page that displays the following:
+
+    * Account Details: Account Name, Account Number, Type, Active, Phone, Fax. The fields should be displayed as input fields using the Standard Controller. 
+    A Save/Cancel Option should be available.
+
+    * Related Contact list with the following read-only columns: Name, Title, Phone, Is Primary Contact.
+
+- Besides the Contact Information, another column should be displayed:
+
+    * If the Contact is set as a Primary Contact, then an icon should be displayed 
+
+    * If the Contact is not set as a Primary Contact, then a link should be displayed that will allow the user to set the Contact as a primary contact. 
+    When clicking the link, a confirmation pop-up should be displayed to make sure that the user hasn’t accidentally clicked the link. 
+    If the user clicks yes, the selected contact will be set as primary and all the other contacts will be secondary (Is Primary Contact should be false).
+
+- A Search by Contact Name should also be available for the Contact list;
+
+- Create a "Set Primary Contact" custom button that will redirect the user to the Visualforce page and add it to the Account Layout.
+
+-->
+
+<apex:page standardController="Account">
+
+    <script>
+        function popUp(contactId) {
+            var url = '/apex/popup?id=' + contactId;
+            window.open(url, 'PopupWindow', 'width=400,height=400');
+        }
+    </script>
+
+
+    <apex:form>
+        <apex:pageBlock title="Account Details">
+            <apex:pageBlockSection>
+                <apex:inputField value="{! Account.Name}" />
+                <apex:inputField value="{! Account.AccountNumber}" />
+                <apex:inputField value="{! Account.Type}" />
+                <apex:inputField value="{! Account.Active__c}" />
+                <apex:inputField value="{! Account.Phone}" />
+                <apex:inputField value="{! Account.Fax}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{! save}" value="Save" />
+                <apex:commandButton action="{! cancel}" value="Cancel" immediate="true" html-formnovalidate="formnovalidate" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+
+
+    <apex:form>
+        <apex:pageBlock title="Related Contact list">
+            <apex:pageBlockTable value="{!Account.Contacts}" var="con">
+                <apex:column headerValue="Name" value="{!con.Name}" />
+                <apex:column headerValue="Title" value="{!con.Title}" />
+                <apex:column headerValue="Phone" value="{!con.Phone}" />
+                <apex:column headerValue="Is Primary Contact" value="{!con.IsPrimaryContact__c}" />
+                <apex:column headerValue="Set as Primary">
+                    <apex:outputPanel rendered="{!con.IsPrimaryContact__c}">
+                        <apex:image value="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" width="20" height="20" />
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!con.IsPrimaryContact__c}">
+                        <apex:outputLink onclick="popUp('{!con.Id}'); return false;">Set as Primary</apex:outputLink>
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

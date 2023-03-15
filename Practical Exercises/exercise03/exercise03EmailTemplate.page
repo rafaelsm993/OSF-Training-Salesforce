@@ -1,0 +1,18 @@
+<table>
+    <tr>
+        <th>Account</th>
+        <th>Stage</th>
+        <th>Amount</th>
+    </tr>
+    {{relatedTo.exercise03Object__r}}
+    <tr>
+        <td>{{relatedTo.exercise03Object__r.accId__r.Name}}</td>
+        <td>{{#each relatedTo.exercise03Object__r.opps__c}}
+            {{#if StageName}}{{StageName}}{{/if}}
+        {{/each}}</td>
+        <td>{{#each relatedTo.exercise03Object__r.opps__c}}
+            {{#if Amount}}{{Amount}}{{/if}}
+        {{/each}}</td>
+    </tr>
+    {{/relatedTo.exercise03Object__r}}
+</table>

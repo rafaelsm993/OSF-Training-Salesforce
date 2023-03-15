@@ -1,0 +1,16 @@
+<apex:page standardController="Contact" extensions="exercise01ExtensionClass">
+    <apex:PageBlock>
+        <apex:pageBlockSection title="CONFIRMATION">
+            Are you sure you want to set this contact as primary?
+            <apex:form>
+                <apex:inputHidden value="{!Contact.Id}" id="contactId" />
+                <apex:commandButton action="{!updateField}" value="Confirm" oncomplete="window.top.close();"/>
+            </apex:form>
+        </apex:pageBlockSection>
+    </apex:PageBlock>
+
+    <script>
+        document.getElementById('contactId').value = '{!Contact.Id}';
+    </script>
+
+</apex:page>

@@ -1,0 +1,17 @@
+<!-- 
+Create a Visualforce page that displays the first name of the currently logged-in user.
+
+Challenge Requirements
+    *Create a new Visualforce page:
+    *Label: DisplayUserInfo
+    *Name: DisplayUserInfo
+    *The displayed user information must be generated dynamically from the logged-in user 
+-->
+
+<apex:page>
+
+    <h1>Username: {! $User.FirstName + ' ' + $User.LastName}</h1>
+    <br/>
+    <h2>Company: {! $User.CompanyName}</h2>
+
+</apex:page>

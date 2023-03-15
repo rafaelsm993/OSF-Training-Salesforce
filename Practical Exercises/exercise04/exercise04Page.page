@@ -1,0 +1,17 @@
+<apex:page standardController="Account" extensions="exercise04ExtensionClass">
+    <apex:pageBlock title="Weather{!Account.BillingCity}">
+        <apex:pageBlockSection columns="2">
+            <apex:pageBlockSectionItem>
+                <apex:outputLabel value="Description " />
+                <apex:outputText value="{!weatherData['description']}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem>
+                <apex:outputLabel value="Temperature " />
+                <apex:outputText value="{!weatherData['temperature']}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection>
+            <apex:image url="{!'https://openweathermap.org/img/w/' + weatherData['iconCode'] + '.png'}" width="50" height="50" />
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

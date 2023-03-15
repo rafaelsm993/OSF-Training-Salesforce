@@ -1,0 +1,44 @@
+<!--
+Create a Visualforce page that displays new cases
+Create a Visualforce page that uses a custom controller to display a list of cases with the status of New.
+
+Challenge Requirements
+
+Create a new Visualforce page:
+    * Label: NewCaseList
+    * Name: NewCaseList
+Create a custom Apex controller:
+    * Name: NewCaseListController
+    * Include a publicly scoped method named getNewCases
+    * Use the return type of List<Case>
+    * Return a list of case records that includes the ID and CaseNumber fields
+    * Filter the results returned to only have a status of New
+The NewCaseList Visualforce page must use an apex:repeat component, which is:
+    * Bound to newCases
+    * Refers to the var attribute as case
+    * With the component tags, bind an apex:outputLink component to the ID of the case. 
+    This will cause the page to direct the user to the detail page of the respective case record.
+
+-->
+
+<apex:page controller="NewCaseListController">
+        <apex:pageBlock title="Case List">
+            <apex:repeat value="{! NewCases}" var="case">
+                        <apex:pageBlock>
+                            <apex:pageBlockSection>
+                                <h1>{! case.Subject}</h1> <br/>
+                                <h2>by {! case.Contact.Name} from {! case.Account.Name}</h2> 
+                            </apex:pageBlockSection>
+                            <apex:pageBlockSection>
+                                <ul style="list-style: none;">
+                                    <li>
+                                        Case Number: {! case.CaseNumber} <br/>
+                                        <apex:outputLink style="text-decoration: none" value="/{! case.Id}" target="_blank">ID: {! case.Id} </apex:outputLink>
+                                    </li>
+                                 </ul>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>      
+                    </apex:repeat>
+        </apex:pageBlock>
+    
+</apex:page>
